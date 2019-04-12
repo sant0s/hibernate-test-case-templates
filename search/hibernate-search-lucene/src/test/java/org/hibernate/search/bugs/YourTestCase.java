@@ -44,11 +44,9 @@ public class YourTestCase extends SearchTestBase {
 	public void doTest(ObjectLookupMethod objectLookupMethod, DatabaseRetrievalMethod databaseRetrievalMethod) {
 		try ( Session s = getSessionFactory().openSession() ) {
 			MyEntity myEntity1 = new MyEntity( new MyIdClass( 1, 100 ), "value1" );
-			MyEntity myEntity2 = new MyEntity( new MyIdClass( 2, 200 ), "value2" );
-	
+
 			Transaction tx = s.beginTransaction();
 			s.persist( myEntity1 );
-			s.persist( myEntity2 );
 			tx.commit();
 		}
 
@@ -66,17 +64,14 @@ public class YourTestCase extends SearchTestBase {
 			}
 
 			List<MyEntity> result = (List<MyEntity>) fullTextQuery.list();
-			assertEquals( 2, result.size() );
+			assertEquals( 1, result.size() );
 			MyIdClass result1Id = result.get( 0 ).getId();
-			MyIdClass result2Id = result.get( 1 ).getId();
 
 			assertEquals( (Integer) 1, result1Id.getMyField1() );
 			assertEquals( (Integer) 100, result1Id.getMyField2() );
-			assertEquals( (Integer) 2, result2Id.getMyField1() );
-			assertEquals( (Integer) 200, result2Id.getMyField2() );
 
 			assertEquals( (Integer) 101, result1Id.getMyTransientField() );
-			assertEquals( (Integer) 202, result2Id.getMyTransientField() );
+
 		}
 	}
 

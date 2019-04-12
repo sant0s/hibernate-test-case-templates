@@ -14,7 +14,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
 @Embeddable
-@Access(AccessType.PROPERTY)
 public class MyIdClass implements Serializable {
 	private Integer myField1;
 	private Integer myField2;
@@ -66,7 +65,6 @@ public class MyIdClass implements Serializable {
 		updateTransientField();
 	}
 
-	@Transient
 	public Integer getMyTransientField() {
 		return myTransientField;
 	}
